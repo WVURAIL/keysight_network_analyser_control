@@ -1,7 +1,7 @@
 # keysight_network_analyser_control
 Scripts to control and extract data from a Keysight Network Analyser
 
-Currently only supports windows
+Currently only supports Windows
 
 ## Python dependencies
 
@@ -23,3 +23,18 @@ In the scripts edit  path to the appropraite library file
 ```
 VISA_LIB_FILE_PATH = "C:\\Windows\\System32\\visa64.dll"
 ```
+
+## Usage
+
+Edit the parent directory where files and plots will be stored:
+```
+PARENT_DIR = "C:\\Users\\username\\Desktop\\workingdirectory\\"
+```
+Run script:
+```
+python ./measure_two_port_s_parameters` 
+```
+
+### TODO 
+- linux support
+
