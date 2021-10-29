@@ -122,7 +122,7 @@ def measure_s_parameter(measurement, serial_num, start_freq, stop_freq, output_p
         plt.title(f"{measurement}_{serial_num}")
         plt.show()
         plt.savefig(
-            f"{PLOT_DIR}{measurement}_{serial_num}}.png")
+            f"{PLOT_DIR}{measurement}_{serial_num}.png")
 
     VNA.write(':CALCulate:SELected:FORMat REAL')
     time.sleep(1)
