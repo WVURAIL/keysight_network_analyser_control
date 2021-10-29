@@ -37,7 +37,7 @@ def check_power_mode():
     """
     CHECK POWER MODE
     """
-    print(f"Current Output power is{VNA.query('SOURce:POWer:ALC:MODE?')}")
+    print(f"Current Output power is {VNA.query('SOURce:POWer:ALC:MODE?')}")
 
 
 def set_power_mode(output_power, nominal_power=-15):
@@ -140,6 +140,7 @@ def measure_s_parameter(measurement, serial_num, start_freq, stop_freq, output_p
 
 
 def intialize_network_analyzer():
+    global VNA
     ##############################################################################
     # load visa library
     rm = visa.ResourceManager(
