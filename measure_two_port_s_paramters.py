@@ -91,7 +91,7 @@ def measure_s_parameter(measurement, serial_num, start_freq, stop_freq, output_p
     set_freq_lims(start_freq, stop_freq)
     check_power_mode()
 
-    if output_power = "MAN":
+    if output_power == "MAN":
         input(f"Enter nominal power in dBm :")
     set_power_mode(output_power, nominal_power)
     print(f"Measuring {measurement} with Output mode {output_power}")
@@ -252,7 +252,7 @@ def execute_measurement(start_freq, stop_freq):
 
             f = np.linspace(start_freq, stop_freq, S11_raw.shape[-1])
 
-            s = np.zeros((len(f), 2, 2))
+            s = np.zeros((len(f), 2, 2))+1.0j
             s[:, 0, 0] = S11_raw
             s[:, 0, 1] = S12_raw
             s[:, 1, 0] = S21_raw
