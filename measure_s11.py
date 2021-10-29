@@ -90,7 +90,7 @@ def measure_s_parameter(measurement, serial_num, start_freq, stop_freq, output_p
     set_freq_lims(start_freq, stop_freq)
     check_power_mode()
 
-    if output_power = "MAN":
+    if output_power == "MAN":
         input(f"Enter nominal power in dBm :")
     set_power_mode(output_power, nominal_power)
     print(f"Measuring {measurement} with Output mode {output_power}")
