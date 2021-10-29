@@ -1,5 +1,5 @@
 ############################################
-# @Purpose:Measure_S11.py: A script measure 2 port S parameters. can easily be extended.
+# @Purpose:measure_two_port_s_paramters.py: A script measure 2 port S parameters. can easily be extended.
 #
 # @Authors: Pranav Sanghavi and Joseph Shepard
 #
@@ -19,10 +19,8 @@ from sys import exit
 def set_freq_lims(start, stop):
     """
     set_freq_lims [Set frequency limits of measurement]
-
     [GP-IB Commands:
     http://na.support.keysight.com/pna/help/latest/Programming/GP-IB_Command_Finder/Sense/Frequency.htm]
-
     Parameters
     ----------
     start : [float]
@@ -38,15 +36,13 @@ def check_power_mode():
     """
     CHECK POWER MODE
     """
-    print(f"Current Output power is{VNA.query('SOURce:POWer:ALC:MODE?')}")
+    print(f"Current Output power is {VNA.query('SOURce:POWer:ALC:MODE?')}")
 
 
 def set_power_mode(output_power, nominal_power=-15):
     """
     set_power_mode [set power level for your measurement]
-
     [set power, can be "HIGH", "LOW" or "MAN" if "MAN" ie manual set `nominal power`]
-
     Parameters
     ----------
     output_power : [str]
@@ -64,9 +60,7 @@ def set_power_mode(output_power, nominal_power=-15):
 def measure_s_parameter(measurement, serial_num, start_freq, stop_freq, output_power, nominal_power=-15, plot=False):
     """
     measure_s_parameter [measures S parameter of choice]
-
     [S11, S12, S21, S22, for given power level. ]
-
     Parameters
     ----------
     measurement :[str]]
@@ -81,7 +75,6 @@ def measure_s_parameter(measurement, serial_num, start_freq, stop_freq, output_p
         ["HIGH", "LOW" or "MAN"]
     nominal_power : [float]
         [in dBm]
-
     Returns
     -------
     [tuple of nd.array]
@@ -141,6 +134,7 @@ def measure_s_parameter(measurement, serial_num, start_freq, stop_freq, output_p
 
 
 def intialize_network_analyzer():
+    global VNA
     ##############################################################################
     # load visa library
     rm = visa.ResourceManager(
@@ -206,13 +200,10 @@ def intialize_network_analyzer():
     # R2 - Port 2 reference receiver measurement
     # ```
 
-
 def execute_measurement(start_freq, stop_freq):
     """
     execute_measurement [Get two port S parameters from the network analyzer]
-
     [saves touchstone files in TOUCHSTONE_DIR]
-
     Parameters
     ----------
     start_freq : [float]
@@ -223,7 +214,7 @@ def execute_measurement(start_freq, stop_freq):
     KEEP_MEASURING = True
     while KEEP_MEASURING:
         con = input(
-            "Please Connect the VNA and ensure it is powered on! Once connected press y: ")
+            "Please Connect the VNAs and ensure it is powered on! Once connected press y: ")
         if con == 'y':
             intialize_network_analyzer()
 
@@ -240,12 +231,15 @@ def execute_measurement(start_freq, stop_freq):
             m = "S11"
             S11, S11_raw = measure_s_parameter(
                 m, serial_num_1, start_freq, stop_freq, output_power, nominal_power=-15, plot=False)
+            output_power = "LOW"
             m = "S12"
             S12, S12_raw = measure_s_parameter(
                 m, serial_num_1, start_freq, stop_freq, output_power, nominal_power=-15, plot=False)
+            output_power = "LOW"
             m = "S21"
             S21, S21_raw = measure_s_parameter(
                 m, serial_num_1, start_freq, stop_freq, output_power, nominal_power=-15, plot=False)
+            output_power = "LOW"
             m = "S22"
             S22, S22_raw = measure_s_parameter(
                 m, serial_num_1, start_freq, stop_freq, output_power, nominal_power=-15, plot=False)
@@ -262,9 +256,13 @@ def execute_measurement(start_freq, stop_freq):
             nw.write_touchstone(
                 filename=f"{serial_num_1}", dir=f"{TOUCHSTONE_DIR}")
             nw.plot_s_db(label=f"{serial_num_1}")
+            plt.show()
+            plt.savefig(f"{PLOT_DIR}{serial_num}.png")
         i = input("Finished? Press 0. Test another Device? Press 1 : ")
         if i == 1:
             KEEP_MEASURING = True
+        else:
+            KEEP_MEASURING = False
     print("Measurement Done!")
 
 
@@ -274,14 +272,14 @@ if __name__ == "__main__":
     start_freq = 1e7
     stop_freq = 2e9
 
-    if start_freq < stop_freq:
-        print("start frequency is less than stop freq. fix and rerun")
+    if start_freq > stop_freq:
+        print("start frequency is greater than stop freq. fix and rerun")
         exit()
 
     VISA_LIB_FILE_PATH = "C:\\Windows\\System32\\visa64.dll"
     PARENT_DIR = "C:\\Users\\RadioLab\\Desktop\\Testing\\"
 
-    PLOT_DIR = PARENT_DIR + "S11_Plots\\"
+    PLOT_DIR = PARENT_DIR + "S_Plots\\"
     TOUCHSTONE_DIR = PARENT_DIR + "Touchstone_Files"
     SMITH_PLOT_DIR = PARENT_DIR + "Smith_Charts\\"
 
