@@ -270,7 +270,11 @@ if __name__ == "__main__":
     # TODO : add argument parsers
     start_freq = 1e7
     stop_freq = 2e9
-
+    
+    if start_freq > stop_freq:
+        print("start frequency is greater than stop freq. fix and rerun")
+        exit()
+       
     VISA_LIB_FILE_PATH = "C:\\Windows\\System32\\visa64.dll"
     PARENT_DIR = "C:\\Users\\RadioLab\\Desktop\\Testing\\"
 
