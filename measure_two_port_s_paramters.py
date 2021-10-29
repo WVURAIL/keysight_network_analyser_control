@@ -259,11 +259,11 @@ def execute_measurement(start_freq, stop_freq):
             plt.show()
             plt.savefig(f"{PLOT_DIR}{serial_num}.png")
         i = input("Finished? Press 0. Test another Device? Press 1 : ")
-        if i == 1:
+        if i == '1':
             KEEP_MEASURING = True
         else:
             KEEP_MEASURING = False
-    print("Measurement Done!")
+            print("Measurement Done!")
 
 
 if __name__ == "__main__":
