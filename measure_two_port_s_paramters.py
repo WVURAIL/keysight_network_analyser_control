@@ -228,18 +228,22 @@ def execute_measurement(start_freq, stop_freq):
             serial_num_1 = serial_num
 
             output_power = "LOW"
+            #nominal_power=-15
             m = "S11"
             S11, S11_raw = measure_s_parameter(
                 m, serial_num_1, start_freq, stop_freq, output_power, nominal_power=-15, plot=False)
             output_power = "LOW"
+            #nominal_power=-15
             m = "S12"
             S12, S12_raw = measure_s_parameter(
                 m, serial_num_1, start_freq, stop_freq, output_power, nominal_power=-15, plot=False)
             output_power = "LOW"
+            #nominal_power=-15
             m = "S21"
             S21, S21_raw = measure_s_parameter(
                 m, serial_num_1, start_freq, stop_freq, output_power, nominal_power=-15, plot=False)
             output_power = "LOW"
+            #nominal_power=-15
             m = "S22"
             S22, S22_raw = measure_s_parameter(
                 m, serial_num_1, start_freq, stop_freq, output_power, nominal_power=-15, plot=False)
@@ -255,9 +259,9 @@ def execute_measurement(start_freq, stop_freq):
             nw = rf.Network(name=f"{serial_num_1}", s=s, frequency=f, z0=50)
             nw.write_touchstone(
                 filename=f"{serial_num_1}", dir=f"{TOUCHSTONE_DIR}")
-            nw.plot_s_db(label=f"{serial_num_1}")
-            plt.show()
-            plt.savefig(f"{PLOT_DIR}{serial_num}.png")
+            #nw.plot_s_db(label=f"{serial_num_1}")
+            #plt.show()
+            #plt.savefig(f"{PLOT_DIR}{serial_num}.png")
         i = input("Finished? Press 0. Test another Device? Press 1 : ")
         if i == '1':
             KEEP_MEASURING = True
