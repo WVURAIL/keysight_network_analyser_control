@@ -23,7 +23,11 @@ In the scripts edit  path to the appropraite library file
 ```
 VISA_LIB_FILE_PATH = "C:\\Windows\\System32\\visa64.dll"
 ```
+## Current scripts 
 
+- `measure_s11.py`
+- `measure_two_port_s_parameters.py`
+- 
 ## Usage
 
 Edit the parent directory where files and plots will be stored:
@@ -32,9 +36,8 @@ PARENT_DIR = "C:\\Users\\username\\Desktop\\workingdirectory\\"
 ```
 Run script:
 ```
-python ./measure_two_port_s_parameters` 
+python ./measure_two_port_s_parameters
 ```
 
 ### TODO 
 - linux support
-
