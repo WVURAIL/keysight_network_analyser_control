@@ -48,13 +48,18 @@ def set_power_mode(output_power, nominal_power=-15):
     output_power : [str]
         ["HIGH", "LOW" or "MAN"]
     nominal_power : int, optional
-        [description], by default -15dBm
+        [description], by default -15dB
+        Source power/attenuator level.
+        N9912A: 0 to -31 dB in 1 dB steps
+        N9923A: 0 to -47 dB in .5 dB steps
+        All other models: Set power level from +3 to -45 dBm in .1 dB steps.
     """
     print(f"Setting output power to {output_power}")
     VNA.write('SOURce:POWer:ALC:MODE ' + str(output_power))
     check_power_mode()
     if str(output_power) == "MAN":
-        print(f"Setting nominal power level {nominal_power}")
+        print(f"Setting nominal power/attenuation level {nominal_power}")
+        VNA.write('SOURce:POWer ' + str(nominal_power))
 
 
 def measure_s_parameter(measurement, serial_num, start_freq, stop_freq, output_power, nominal_power=-15, plot=False):
@@ -74,7 +79,7 @@ def measure_s_parameter(measurement, serial_num, start_freq, stop_freq, output_p
     output_power : [str]
         ["HIGH", "LOW" or "MAN"]
     nominal_power : [float]
-        [in dBm]
+        [in dB]
     Returns
     -------
     [tuple of nd.array]
