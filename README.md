@@ -21,7 +21,7 @@ keysight  [here](https://www.keysight.com/us/en/lib/software-detail/computer-sof
 
 or can install NI-VISA:
 - Windows/macOS [here](https://pyvisa.readthedocs.io/en/latest/faq/getting_nivisa.html#faq-getting-nivisa)
-- Linux [here](https://www.ni.com/en-us/support/downloads/drivers/download.ni-linux-device-drivers.html#409880) and instructions (here)[https://www.ni.com/en-us/support/documentation/supplemental/18/downloading-and-installing-ni-driver-software-on-linux-desktop.html] 
+- Linux [here](https://www.ni.com/en-us/support/downloads/drivers/download.ni-linux-device-drivers.html#409880) and [instructions here](https://www.ni.com/en-us/support/documentation/supplemental/18/downloading-and-installing-ni-driver-software-on-linux-desktop.html) 
 
 In the scripts edit  path to the appropraite library file
 
