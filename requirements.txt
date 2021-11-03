@@ -1,0 +1,4 @@
+matplotlib==3.3.4
+numpy==1.19.2
+PyVISA==1.11.3
+scikit_rf==0.18.1
