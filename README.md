@@ -14,7 +14,7 @@ PyVISA==1.11.3
 scikit_rf==0.18.1
 ```
 
-## Install Keysight libraries 
+## Install VISA libraries 
 
 Can be downloaded and installed from 
 
