@@ -16,7 +16,12 @@ scikit_rf==0.18.1
 
 ## Install Keysight libraries 
 
-Can be downloaded and installed from [here](https://www.keysight.com/us/en/lib/software-detail/computer-software/io-libraries-suite-downloads-2175637.html) 
+Can be downloaded and installed from 
+
+[here](https://pyvisa.readthedocs.io/en/latest/faq/getting_nivisa.html#faq-getting-nivisa)
+
+or can get from keysight 
+[here](https://www.keysight.com/us/en/lib/software-detail/computer-software/io-libraries-suite-downloads-2175637.html) 
 
 In the scripts edit  path to the appropraite library file
 
