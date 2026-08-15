@@ -3,6 +3,29 @@ Scripts to control and extract data from a Keysight Network Analyser
 
 Currently only supports Windows
 
+## Layout
+
+```
+scripts/
+  vna_control.py                    Shared instrument control. Frequency limits,
+                                    power mode, S-parameter capture, connection setup.
+  measure_s11.py                    One-port S11 workflow.
+  measure_two_port_s_paramters.py   Two-port S-parameter workflow.
+tests/
+  test_scpi_unchanged.py            Runs the helpers against a fake instrument and
+                                    checks the SCPI sequence has not changed.
+```
+
+The two measurement scripts previously carried their own copies of the same five
+functions. They now import them from `vna_control`; what stays in each script is
+`execute_measurement()`, which is the part that genuinely differs.
+
+Run the test with no instrument attached:
+
+```
+python3 tests/test_scpi_unchanged.py
+```
+
 ## Python dependencies
 
 External packages used at time of documentation, newer version will mostly not break scripts.
