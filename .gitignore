@@ -1,0 +1,16 @@
+# Python environments & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+*.egg-info/
+
+# RF Lab data dumps & traces (do not commit raw measurements)
+*.s2p
+*.s1p
+*.csv
+*.dat
+*.log
+*.h5
+*.hdf5
