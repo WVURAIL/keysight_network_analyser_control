@@ -7,6 +7,8 @@
 # @Date: 9/13/2021
 ###############################################
 
+import os
+
 import numpy as np
 import skrf as rf
 import matplotlib.pyplot as plt
@@ -248,7 +250,7 @@ def execute_measurement(start_freq, stop_freq):
             m = "S11"
             output_power = "HIGH"
             S11, S11_raw = measure_s_parameter(
-                m, output_power, serial_num_2, start_freq=start_freq, stop_freq=stop_freq)
+                m, serial_num_2, start_freq, stop_freq, output_power, nominal_power=-15, plot=False)
 
             f = np.linspace(start_freq, stop_freq, S11_raw.shape[-1])
             nw2 = rf.Network(name=f"{serial_num_2}",
@@ -261,11 +263,10 @@ def execute_measurement(start_freq, stop_freq):
             nw2.plot_s_smith()
             plt.title(f"{serial_num_2} Smith Chart")
             plt.savefig(
-                f"{SMITH_PLOT_DIR}")
+                f"{SMITH_PLOT_DIR}{serial_num_2}.jpg")
 
         i = input("Finished? Press 0. Test another antenna? Press 1 : ")
-        if i == 1:
-            KEEP_MEASURING = True
+        KEEP_MEASURING = (i == "1")
     print("Measurement Done!")
 
 
