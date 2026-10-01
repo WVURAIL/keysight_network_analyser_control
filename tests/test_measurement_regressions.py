@@ -15,7 +15,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 class OnePortWorkflowTests(unittest.TestCase):
     def setUp(self):
-        self.source = REPO_ROOT / "measure_s11.py"
+        self.source = REPO_ROOT / "scripts" / "measure_s11.py"
         self.tree = ast.parse(self.source.read_text(), filename=str(self.source))
 
     def run_fragment(self, nodes, namespace):
@@ -26,6 +26,8 @@ class OnePortWorkflowTests(unittest.TestCase):
         networks = [Mock(), Mock()]
         namespace = {
             "np": np,
+            "vna": SimpleNamespace(intialize_network_analyzer=Mock()),
+            "VISA_LIB_FILE_PATH": "offline-library",
             "rf": SimpleNamespace(Network=Mock(side_effect=networks)),
             "plt": Mock(),
             "input": Mock(side_effect=responses),
@@ -35,8 +37,15 @@ class OnePortWorkflowTests(unittest.TestCase):
         # Defining functions does not run their bodies or import VISA.
         functions = [node for node in self.tree.body
                      if isinstance(node, ast.FunctionDef)]
-        self.run_fragment(functions, namespace)
-        namespace["intialize_network_analyzer"] = Mock()
+        os_imports = [node for node in self.tree.body
+                      if isinstance(node, ast.Import)
+                      and any(alias.name == "os" for alias in node.names)]
+        control_source = REPO_ROOT / "scripts" / "vna_control.py"
+        control_tree = ast.parse(control_source.read_text(), filename=str(control_source))
+        measurement_helper = next(node for node in control_tree.body
+                                  if isinstance(node, ast.FunctionDef)
+                                  and node.name == "measure_s_parameter")
+        self.run_fragment(os_imports + functions + [measurement_helper], namespace)
         namespace["set_freq_lims"] = Mock()
         namespace["measure_s_parameter"] = create_autospec(
             namespace["measure_s_parameter"],
@@ -91,7 +100,7 @@ class OnePortWorkflowTests(unittest.TestCase):
                 with patch("builtins.print"):
                     namespace["execute_measurement"](1e7, 2e9)
                 self.assertEqual(namespace["input"].call_count, len(responses))
-                namespace["intialize_network_analyzer"].assert_not_called()
+                namespace["vna"].intialize_network_analyzer.assert_not_called()
                 namespace["measure_s_parameter"].assert_not_called()
 
 
