@@ -139,7 +139,7 @@ def measure_s_parameter(measurement, serial_num, start_freq, stop_freq, output_p
         plt.plot(np.linspace(start_freq/1e6,
                              stop_freq/1e6, data.shape[-1]), data)
         plt.xlabel("MHz")
-        plt.ylabel("dBm")
+        plt.ylabel("dB")
         plt.title(f"{measurement}_{serial_num}")
         plt.show()
         plt.savefig(
